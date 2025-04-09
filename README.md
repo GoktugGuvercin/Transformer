@@ -48,4 +48,10 @@ Predicting a token is conditioned on the previous tokens in the training stage. 
 | Step 4 | <start> Ich lese ein | Buch       |
 
 
-If predicted tokens were used to estimate the next token in training stage, it would proceed one at a time because we don't know what the model predict. On the other hand, teacher forcing enables us to train the entire architecture in parallel because we know what ground-truth sequence is. At this point, masked multi-head attention enter the picture. 
+If predicted tokens were used to estimate the next token in training stage, it would proceed one at a time because we don't know what the model predict. On the other hand, teacher forcing enables us to train the entire architecture in parallel because we know what ground-truth sequence is. To understand this in a more clear way, let's look at masked multi-head attention.
+
+The decoder has to learn how to predict the next token for every token in the sentence, and it is only allowed to consider the previous tokens. This means that if the decoder will predict $N$'th token, all the later tokens should be out of consideration. That is why masked multi-head attention defines an upper triangular masking matrix to hide the tokens coming after the token that will be predicted.
+
+<p align="center">
+  <img src="https://github.com/GoktugGuvercin/Transformer/blob/main/images/masked%20attention%20matrix.png" width="700" title="Masked Multi Head Attention">
+</p>
