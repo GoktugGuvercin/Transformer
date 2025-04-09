@@ -65,5 +65,5 @@ If we have five tokens in the sentence, the decoder has to learn how to predict 
 In masked self attention, query and key, both of which refers to continuous representation of target sentence, are at first multiplied, and then the result of this multiplication is normalized by square root of feature dimension. This generates raw attention scores. Masking is applied at this point. 
 
 <p align="center">
-  <img src="https://github.com/GoktugGuvercin/Transformer/blob/main/images/masked%20attention%20matrix.png" width="700" title="Masked Multi Head Attention">
+  <img src="https://github.com/GoktugGuvercin/Transformer/blob/main/images/masked%20attention.png" width="700" title="Masked Multi Head Attention">
 </p>
