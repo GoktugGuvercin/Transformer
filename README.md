@@ -31,21 +31,25 @@ Before decoding, ground-truth sentence in German is tokenized and converted into
 
 While training the entire architecture, we expect the decoder to learn how to predict the next token for the all tokens in target sequence. In other words, the decoder needs to learn;
 
-- Given <start>, predict "Ich"
-- Given <start> Ich, predict "lese"
-- Given <start> Ich lese, predict "ein"
-- Given <start> Ich lese ein, predict "Buch"
+- Given \<start\>, predict "Ich"
+- Given \<start\> Ich, predict "lese"
+- Given \<start\> Ich lese, predict "ein"
+- Given \<start\> Ich lese ein, predict "Buch"
 
 At this point, the decoder is enforced to construct the whole sentence, but the prediction of one word only relies on its preceding words. In the training stage, the decoder will be exposed to so many different sentences; this allows it to learn which word should come before or after which word, and the coherence between subjects, verbs and objects. However, this learning takes time; it will not be so quickly. That is why, the predictions of the decoder will be mostly instable, and gramatically or semantically wrong. 
 
 Predicting a token is conditioned on the previous tokens in the training stage. If the initial tokens are incorrectly predicted, and we provide the decoder with those predictions, the next tokens that will be predicted will be naturally affected and thereby being incorrect. That is why, decoder is not fed by its predicted tokens, instead always receive the correct tokens in target sentence. In that way, we would force it to stay on the correct track. This is called *"teacher forcing"*. A simple example is given below:
 
-| Step   | Decoder Input        | Prediction |
-|--------|----------------------|------------|
-| Step 1 | <start>              | Ich        |
-| Step 2 | <start> Ich          | trinke     |
-| Step 3 | <start> Ich lese     | kein       |
-| Step 4 | <start> Ich lese ein | Buch       |
+<div align="center">
+
+| Step   | Decoder Input          | Prediction |
+|--------|------------------------|------------|
+| Step 1 | \<start\>              | Ich        |
+| Step 2 | \<start\> Ich          | trinke     |
+| Step 3 | \<start\> Ich lese     | kein       |
+| Step 4 | \<start\> Ich lese ein | Buch       |
+  
+</div>
 
 
 If predicted tokens were used to estimate the next token in training stage, it would proceed one at a time because we don't know what the model predict. On the other hand, teacher forcing enables us to train the entire architecture in parallel because we know what ground-truth sequence is. To understand this in a more clear way, let's look at masked multi-head attention.
