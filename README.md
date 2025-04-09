@@ -57,5 +57,13 @@ If predicted tokens were used to estimate the next token in training stage, it w
 The decoder has to learn how to predict the next token for every token in the sentence, and it is only allowed to consider the previous tokens. This means that if the decoder will predict $N$'th token, all the later tokens should be out of consideration. That is why masked multi-head attention defines an upper triangular masking matrix to hide the tokens coming after the token that will be predicted.
 
 <p align="center">
+  <img src="https://github.com/GoktugGuvercin/Transformer/blob/main/images/masked%20attention%20matrix.png" width="700" title="Masking tokens in parallel">
+</p>
+
+If we have five tokens in the sentence, the decoder has to learn how to predict each of these five tokens, but in parallel not sequentially. To parallelize them, the prediction of every token is considered in the matrix; it covers all scenarios. Additionally, each token can only attend to itself and earlier tokens. Hence, masken attention system enforce causality; how the next token will be predicted is reasoned to previous tokens. This underlies autoregressive nature of the decoder. 
+
+In masked self attention, query and key, both of which refers to continuous representation of target sentence, are at first multiplied, and then the result of this multiplication is normalized by square root of feature dimension. This generates raw attention scores. Masking is applied at this point. 
+
+<p align="center">
   <img src="https://github.com/GoktugGuvercin/Transformer/blob/main/images/masked%20attention%20matrix.png" width="700" title="Masked Multi Head Attention">
 </p>
